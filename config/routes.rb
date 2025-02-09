@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get "oauth/callback" => "oauth#callback"
 
   resources :user_images, only: [:new, :create, :index]
-
+  post "user_images/tweet" => "user_images#tweet"
   # Defines the root path route ("/")
   # root "posts#index"
 end

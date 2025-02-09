@@ -21,6 +21,32 @@ class UserImagesController < ApplicationController
     @images = UserImage.where(user: @current_user).order(created_at: :desc)
   end
 
+  def tweet
+    image = UserImage.find(params[:image_id])
+    image_url = url_for(image.image)
+    request_body = {
+      text: image.title,
+      url: image_url
+    }.to_json
+
+    uri = URI('http://unifa-recruit-my-tweet-app.ap-northeast-1.elasticbeanstalk.com/api/tweets')
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Post.new(
+      uri.path,
+      'Content-Type' => 'application/json',
+      'Authorization' => 'Bearer ' + session[:oauth_access_token]
+    )
+    request.body = request_body
+    response = http.request(request)
+    if response.is_a?(Net::HTTPSuccess)
+      flash[:notice] = 'ツイートしました'
+    else
+      flash[:alert] = 'ツイートに失敗しました'
+    end
+    
+    redirect_to user_images_path
+  end
+
   private
 
   def image_params
