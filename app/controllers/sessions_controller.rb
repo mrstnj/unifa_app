@@ -1,4 +1,4 @@
-class SessionController < ApplicationController
+class SessionsController < ApplicationController
   skip_before_action :authenticate_token, only: [:new, :create]
 
   def create
@@ -17,6 +17,11 @@ class SessionController < ApplicationController
     end
 
     set_flash_and_redirect(error_messages, login_path) if error_messages.any?
+  end
+
+  def destroy
+    reset_session
+    redirect_to login_path
   end
 
 end
