@@ -18,7 +18,7 @@ class UserImagesController < ApplicationController
   end
 
   def index
-    @images = UserImage.all
+    @images = UserImage.where(user: @current_user).order(created_at: :desc)
   end
 
   private
