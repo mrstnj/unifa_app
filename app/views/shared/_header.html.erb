@@ -2,7 +2,7 @@
   <div class="container">
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
       <div style="display: flex; align-items: center;">
-        <%= link_to root_path, style: "text-decoration: none;" do %>
+        <%= link_to (@current_user ? user_images_path : login_path), style: "text-decoration: none;" do %>
           <h1 style="color: white; font-size: 20px; margin: 0;">Unifa App</h1>
         <% end %>
       </div>
