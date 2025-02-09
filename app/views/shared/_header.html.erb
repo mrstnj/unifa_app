@@ -1,15 +1,22 @@
-<header class="bg-gray-800 text-white">
-  <div class="container mx-auto px-4 py-3">
-    <div class="flex justify-between items-center">      
-      <div>
-        <% if @current_user %>
-          <%= button_to "ログアウト", 
-              logout_path, 
-              method: :delete, 
-              class: "bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" 
-          %>
+<header style="background-color: #4A90E2; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+      <div style="display: flex; align-items: center;">
+        <%= link_to (@current_user ? user_images_path : login_path), style: "text-decoration: none;" do %>
+          <h1 style="color: white; font-size: 20px; margin: 0;">Unifa App</h1>
         <% end %>
       </div>
+      
+      <nav>
+        <% if @current_user && !current_page?(login_path) %>
+          <div style="display: flex; gap: 15px; align-items: center;">
+            <%= link_to "写真一覧", user_images_path, class: "btn", style: "color: white; text-decoration: none; padding: 6px 12px;" %>
+            <%= link_to "写真アップロード", new_user_image_path, class: "btn", style: "color: white; text-decoration: none; padding: 6px 12px;" %>
+            <%= button_to "ログアウト", logout_path, method: :delete, class: "btn", 
+                style: "background-color: transparent; border: 1px solid white; color: white; padding: 6px 12px;" %>
+          </div>
+        <% end %>
+      </nav>
     </div>
   </div>
 </header> 
