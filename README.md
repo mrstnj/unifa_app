@@ -1,24 +1,26 @@
-# README
+# Unifa App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Version
+- Ruby 3.4.1
+- Rails 7.1.5
+- PostgreSQL
 
-Things you may want to cover:
+## セットアップ手順
+```
+$ docker-compose build
 
-* Ruby version
+$ docker-compose run web bundle exec rails db:create
 
-* System dependencies
+$ docker-compose run web bundle exec rails db:migrate
 
-* Configuration
+$ docker-compose run web bundle exec rails db:seed
 
-* Database creation
+$ docker-compose up
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## ログイン
+http://localhost:3000/login
+```
+ログインID： user1
+パスワード： password123*
+```
