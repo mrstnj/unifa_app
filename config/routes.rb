@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get "login" => "session#new"
   post "login" => "session#create"
 
+  resources :user_images, only: [:new, :create, :index]
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
