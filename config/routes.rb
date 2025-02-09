@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   post "login" => "sessions#create"
   delete "logout" => "sessions#destroy"
 
+  get "oauth/authorize" => "oauth#authorize"
+  get "oauth/callback" => "oauth#callback"
+
   resources :user_images, only: [:new, :create, :index]
 
   # Defines the root path route ("/")
