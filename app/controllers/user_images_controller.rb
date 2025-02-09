@@ -4,15 +4,17 @@ class UserImagesController < ApplicationController
   end
 
   def create
+    error_messages = []
+
     @image = UserImage.new(image_params)
     @image.user = @current_user
-    if @image.save!
-      flash[:notice] = "画像がアップロードされました！"
+    if @image.save
       redirect_to user_images_path
     else
-      flash[:alert] = "アップロードに失敗しました。"
-      render :new
+      error_messages.concat(@image.errors.map { |error| error.options[:message] })
     end
+
+    set_flash_and_redirect(error_messages, new_user_image_path) if error_messages.any?
   end
 
   def index

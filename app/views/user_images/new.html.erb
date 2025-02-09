@@ -1,6 +1,16 @@
 <h1>写真アップロード</h1>
 
 <%= form_with(model: @image, local: true) do |form| %>
+  <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <ul style="color: red; list-style-type: disc; padding-left: 20px;">
+        <% flash[:alert].split(', ').each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div>
     <%= form.label :title, "タイトル" %><br>
     <%= form.text_field :title %>

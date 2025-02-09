@@ -20,4 +20,9 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+
+  def set_flash_and_redirect(error_messages, redirect_path)
+    flash[:alert] = error_messages.join(', ')
+    redirect_to redirect_path
+  end
 end

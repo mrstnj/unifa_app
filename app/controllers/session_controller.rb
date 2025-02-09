@@ -16,10 +16,7 @@ class SessionController < ApplicationController
       error_messages << 'ログインIDまたはパスワードが正しくありません'
     end
 
-    if error_messages.any?
-      flash[:alert] = error_messages.join(', ')
-      redirect_to login_path
-    end
+    set_flash_and_redirect(error_messages, login_path) if error_messages.any?
   end
 
 end
