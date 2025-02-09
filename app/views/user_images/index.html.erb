@@ -1,0 +1,14 @@
+<h1>写真一覧</h1>
+
+<% @images.each do |image| %>
+  <div style="margin-bottom: 20px;">
+    <h3><%= image.title %></h3>
+    <% if image.image.attached? %>
+      <%= image_tag(image.image, style: "max-width: 300px; height: auto;") %>
+    <% else %>
+      <p>画像がアップロードされていません。</p>
+    <% end %>
+  </div>
+<% end %>
+
+<%= link_to "新しい画像をアップロード", new_user_image_path %>

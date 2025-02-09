@@ -24,7 +24,9 @@ RUN apt-get update -qq && \
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle config set frozen false
-RUN bundle install && \
+RUN mkdir -p /usr/local/bundle && \
+    chmod 777 /usr/local/bundle && \
+    bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
 

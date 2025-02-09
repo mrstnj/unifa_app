@@ -1,5 +1,5 @@
 class SessionController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  skip_before_action :authenticate_token, only: [:new, :create]
 
   def create
     error_messages = []
@@ -8,16 +8,15 @@ class SessionController < ApplicationController
 
     @user = User.authenticate(params[:login], params[:password])
     if @user.present?
+      reset_session
       @user.issue_access_token
-      render json: { "message": "OK" }
+      session[:access_token] = @user.access_token
+      redirect_to user_images_path
     else
       error_messages << 'ログインIDまたはパスワードが正しくありません'
     end
 
-    if error_messages.any?
-      flash[:alert] = error_messages.join(', ')
-      redirect_to login_path
-    end
+    set_flash_and_redirect(error_messages, login_path) if error_messages.any?
   end
 
 end

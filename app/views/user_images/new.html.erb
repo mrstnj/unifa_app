@@ -1,0 +1,29 @@
+<h1>写真アップロード</h1>
+
+<%= form_with(model: @image, local: true) do |form| %>
+  <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <ul style="color: red; list-style-type: disc; padding-left: 20px;">
+        <% flash[:alert].split(', ').each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, "タイトル" %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :image, "画像を選択" %><br>
+    <%= form.file_field :image %>
+  </div>
+
+  <div>
+    <%= form.submit "アップロード" %>
+  </div>
+<% end %>
+
+<%= link_to "アップロード済み画像一覧", user_images_path %>
