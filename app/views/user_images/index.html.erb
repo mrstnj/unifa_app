@@ -1,5 +1,8 @@
 <h1>写真一覧</h1>
 
+<%= link_to "MyTweetAppと連携", oauth_authorize_path %></br>
+<%= link_to "新しい画像をアップロード", new_user_image_path %>
+
 <div style="display: flex; flex-wrap: wrap; gap: 20px;">
   <% @images.each do |image| %>
     <div style="width: 300px;">
