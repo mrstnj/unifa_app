@@ -1,7 +1,25 @@
 <h1>写真一覧</h1>
+<% if flash[:alert] %>
+  <div class="alert alert-danger">
+    <ul style="color: red; list-style-type: disc; padding-left: 20px;">
+      <% flash[:alert].split(', ').each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<% if flash[:notice] %>
+  <div class="alert alert-success">
+    <ul style="color: green; list-style-type: disc; padding-left: 20px;">
+      <% flash[:notice].split(', ').each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <%= link_to "MyTweetAppと連携", oauth_authorize_path %></br>
-<%= link_to "新しい画像をアップロード", new_user_image_path %>
+<%= link_to "画像を新規にアップロード", new_user_image_path %>
 
 <div style="display: flex; flex-wrap: wrap; gap: 20px;">
   <% @images.each do |image| %>
@@ -12,8 +30,9 @@
       <% else %>
         <p>画像がアップロードされていません。</p>
       <% end %>
+      <% if session[:oauth_access_token].present? %>
+        <%= button_to "ツイートする", user_images_tweet_path(image_id: image.id) %>
+      <% end %>
     </div>
   <% end %>
 </div>
-
-<%= link_to "新しい画像をアップロード", new_user_image_path %>
