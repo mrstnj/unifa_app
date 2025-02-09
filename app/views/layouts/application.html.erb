@@ -10,11 +10,10 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <% unless current_page?(login_path) %>
-      <%= render 'shared/header' %>
-    <% end %>
-    
-    <%= yield %>
+  <body style="margin: 0; padding: 0; background-color: #f5f5f5; min-height: 100vh;">
+    <%= render 'shared/header' %>
+    <main style="padding-top: 20px;">
+      <%= yield %>
+    </main>
   </body>
 </html>
