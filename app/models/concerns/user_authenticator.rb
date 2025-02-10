@@ -11,6 +11,7 @@ module UserAuthenticator
       if user.present? && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
         return user
       else
+        yield user if block_given? && user.present?
         return nil
       end
     end
