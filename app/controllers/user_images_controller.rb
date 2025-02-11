@@ -1,4 +1,6 @@
 class UserImagesController < ApplicationController
+  TWEET_API_URL = 'http://unifa-recruit-my-tweet-app.ap-northeast-1.elasticbeanstalk.com/api/tweets'
+
   def new
     @image = UserImage.new
   end
@@ -29,7 +31,7 @@ class UserImagesController < ApplicationController
       url: image_url
     }.to_json
 
-    uri = URI('http://unifa-recruit-my-tweet-app.ap-northeast-1.elasticbeanstalk.com/api/tweets')
+    uri = URI(TWEET_API_URL)
     http = Net::HTTP.new(uri.host, uri.port)
 
     request = Net::HTTP::Post.new(
