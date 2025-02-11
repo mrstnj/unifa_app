@@ -6,14 +6,20 @@ class SessionsController < ApplicationController
     error_messages << 'ログインIDを入力してください' if params[:login].blank?
     error_messages << 'パスワードを入力してください' if params[:password].blank?
 
-    @user = User.authenticate(params[:login], params[:password])
-    if @user.present?
-      reset_session
-      @user.issue_access_token
-      session[:access_token] = @user.access_token
-      redirect_to user_images_path
-    else
-      error_messages << 'ログインIDまたはパスワードが正しくありません'
+    if error_messages.empty?
+      begin
+        @user = User.authenticate_with_lock(params[:login], params[:password])
+        if @user.present?
+          reset_session
+          @user.issue_access_token
+          session[:access_token] = @user.access_token
+          redirect_to user_images_path
+        else
+          error_messages << 'ログインIDまたはパスワードが正しくありません'
+        end
+      rescue Exceptions::LockedError
+        error_messages << 'アカウントをロックしました'
+      end
     end
 
     set_flash_and_redirect(error_messages, login_path) if error_messages.any?

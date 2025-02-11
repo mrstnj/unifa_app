@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_09_021958) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_10_135638) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_09_021958) do
     t.datetime "access_token_expire_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_count", default: 0
+    t.datetime "unlock_time"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
