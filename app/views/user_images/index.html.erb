@@ -1,26 +1,7 @@
 <div class="container">
   <h1 style="color: #333; margin-bottom: 30px;">写真一覧</h1>
   
-  <% if flash[:alert] || flash[:notice] %>
-    <% if flash[:alert] %>
-      <div class="alert alert-danger">
-        <ul style="margin: 0; padding: 0; list-style-type: none;">
-          <% flash[:alert].split(', ').each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <% if flash[:notice] %>
-      <div class="alert alert-success">
-        <ul style="margin: 0; padding: 0; list-style-type: none;">
-          <% flash[:notice].split(', ').each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  <% end %>
+  <%= render 'shared/flash_messages' %>
 
   <div style="margin-bottom: 30px;">
     <%= link_to "MyTweetAppと連携", oauth_authorize_path, class: "btn btn-primary", style: "margin-right: 15px;" %>

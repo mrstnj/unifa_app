@@ -3,15 +3,7 @@
     <h1 style="color: #333; margin-bottom: 30px; text-align: center;">写真アップロード</h1>
 
     <%= form_with(model: @image, local: true) do |form| %>
-      <% if flash[:alert] %>
-        <div class="alert alert-danger">
-          <ul style="margin: 0; padding: 0; list-style-type: none;">
-            <% flash[:alert].split(', ').each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+      <%= render 'shared/flash_messages' %>
 
       <div class="form-group">
         <%= form.label :title, "タイトル", style: "display: block; margin-bottom: 8px; color: #555;" %>
