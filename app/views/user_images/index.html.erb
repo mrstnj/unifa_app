@@ -4,7 +4,10 @@
   <%= render 'shared/flash_messages' %>
 
   <div style="margin-bottom: 30px;">
-    <%= link_to "MyTweetAppと連携", oauth_authorize_path, class: "btn btn-primary", style: "margin-right: 15px;" %>
+    <%= link_to "MyTweetAppと連携", 
+                oauth_authorize_path,
+                class: session[:oauth_access_token].present? ? "btn btn-secondary disabled" : "btn btn-primary",
+                style: "margin-right: 15px;#{session[:oauth_access_token].present? ? ' pointer-events: none; opacity: 0.65;' : ''}" %>
     <%= link_to "画像を新規にアップロード", new_user_image_path, class: "btn btn-secondary" %>
   </div>
 
