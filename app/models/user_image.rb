@@ -6,6 +6,8 @@ class UserImage < ApplicationRecord
   validates :image, presence: { message: "画像ファイルを入力してください" }
   validate :acceptable_image
 
+  before_save :set_filename, if: -> { image.attached? }
+
   private
 
   def acceptable_image
@@ -19,5 +21,13 @@ class UserImage < ApplicationRecord
     unless acceptable_types.include?(image.content_type)
       errors.add(:image, message: '画像ファイルはJPG、JPEG、PNG形式のみ対応しています')
     end
+  end
+
+  def set_filename
+    return unless image.attached?
+
+    ext = File.extname(image.filename.to_s).downcase
+    filename = SecureRandom.uuid
+    image.blob.filename = "#{filename}#{ext}"
   end
 end
