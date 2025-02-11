@@ -1,0 +1,22 @@
+<% if flash[:alert] || flash[:notice] %>
+  <div class="container">
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <ul style="color: #dc3545; list-style-type: none; margin: 0; padding: 0;">
+          <% flash[:alert].split(', ').each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success">
+        <ul style="color: #198754; list-style-type: none; margin: 0; padding: 0;">
+          <% flash[:notice].split(', ').each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+<% end %> 

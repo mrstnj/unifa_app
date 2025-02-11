@@ -3,15 +3,7 @@
     <h1 style="color: #333; margin-bottom: 30px; text-align: center;">写真アップロード</h1>
 
     <%= form_with(model: @image, local: true) do |form| %>
-      <% if flash[:alert] %>
-        <div class="alert alert-danger">
-          <ul style="margin: 0; padding: 0; list-style-type: none;">
-            <% flash[:alert].split(', ').each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+      <%= render 'shared/flash_messages' %>
 
       <div class="form-group">
         <%= form.label :title, "タイトル", style: "display: block; margin-bottom: 8px; color: #555;" %>
@@ -20,7 +12,7 @@
 
       <div class="form-group">
         <%= form.label :image, "画像を選択", style: "display: block; margin-bottom: 8px; color: #555;" %>
-        <%= form.file_field :image, class: "form-control", style: "padding: 8px;" %>
+        <%= form.file_field :image, accept: 'image/jpeg, image/jpg, image/png', class: "form-control", style: "padding: 8px;" %>
       </div>
 
       <div class="form-group" style="text-align: center;">
@@ -29,7 +21,7 @@
     <% end %>
 
     <div style="text-align: center; margin-top: 20px;">
-      <%= link_to "アップロード済み画像一覧", user_images_path, class: "btn btn-secondary" %>
+      <%= link_to "キャンセル", user_images_path, style: "color: #6c757d; text-decoration: none;" %>
     </div>
   </div>
 </div>

@@ -3,15 +3,7 @@
     <h2 style="text-align: center; margin-bottom: 30px; color: #333;">ログイン</h2>
 
     <%= form_with(url: login_path, local: true) do |f| %>
-      <% if flash[:alert] %>
-        <div class="alert alert-danger">
-          <ul style="color: #dc3545; list-style-type: none; margin: 0; padding: 0;">
-            <% flash[:alert].split(', ').each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+      <%= render 'shared/flash_messages' %>
 
       <div class="form-group">
         <%= f.label :login, 'ログインID', style: "display: block; margin-bottom: 8px; color: #555;" %>

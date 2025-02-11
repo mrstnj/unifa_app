@@ -1,29 +1,13 @@
 <div class="container">
   <h1 style="color: #333; margin-bottom: 30px;">写真一覧</h1>
   
-  <% if flash[:alert] || flash[:notice] %>
-    <% if flash[:alert] %>
-      <div class="alert alert-danger">
-        <ul style="margin: 0; padding: 0; list-style-type: none;">
-          <% flash[:alert].split(', ').each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <% if flash[:notice] %>
-      <div class="alert alert-success">
-        <ul style="margin: 0; padding: 0; list-style-type: none;">
-          <% flash[:notice].split(', ').each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  <% end %>
+  <%= render 'shared/flash_messages' %>
 
   <div style="margin-bottom: 30px;">
-    <%= link_to "MyTweetAppと連携", oauth_authorize_path, class: "btn btn-primary", style: "margin-right: 15px;" %>
+    <%= link_to "MyTweetAppと連携", 
+                oauth_authorize_path,
+                class: session[:oauth_access_token].present? ? "btn btn-secondary disabled" : "btn btn-primary",
+                style: "margin-right: 15px;#{session[:oauth_access_token].present? ? ' pointer-events: none; opacity: 0.65;' : ''}" %>
     <%= link_to "画像を新規にアップロード", new_user_image_path, class: "btn btn-secondary" %>
   </div>
 
@@ -33,13 +17,11 @@
         <div style="padding: 15px;">
           <h3 style="margin: 0 0 15px 0; color: #333;"><%= image.title %></h3>
         </div>
-        <% if image.image.attached? %>
-          <%= image_tag(image.image, style: "width: 100%; height: 200px; object-fit: cover;") %>
-        <% else %>
-          <div style="height: 200px; background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
-            <p style="color: #666;">画像がアップロードされていません。</p>
-          </div>
-        <% end %>
+        <div style="height: 200px; display: flex; align-items: center; justify-content: center;">
+          <% if image.image.attached? %>
+            <%= image_tag(rails_blob_url(image.image, expires_in: 1.hour), style: "max-width: 100%; max-height: 100%; object-fit: contain;") %>
+          <% end %>
+        </div>
         <div style="padding: 15px;">
           <% if session[:oauth_access_token].present? %>
             <%= button_to "ツイートする", user_images_tweet_path(image_id: image.id), class: "btn btn-primary", style: "width: 100%;" %>
