@@ -2,7 +2,7 @@
 
 one:
   login: user_one
-  password_hash: <%= BCrypt::Password.create("Password123!") %>
+  password_hash: <%= BCrypt::Password.create("Password123!").to_s %>
   password_salt: <%= SecureRandom.hex(32) %>
   access_token: <%= SecureRandom.hex(32) %>
   access_token_expire_date: <%= 30.minutes.from_now %>
@@ -11,7 +11,7 @@ one:
 
 two:
   login: user_two
-  password_hash: <%= BCrypt::Password.create("Password123!") %>
+  password_hash: <%= BCrypt::Password.create("Password123!").to_s %>
   password_salt: <%= SecureRandom.hex(32) %>
   access_token: <%= SecureRandom.hex(32) %>
   access_token_expire_date: <%= 30.minutes.from_now %>
