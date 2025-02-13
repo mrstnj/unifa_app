@@ -51,25 +51,21 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should logout" do
-    # まずログイン
     post login_path, params: { login: @user.login, password: "Password123!" }
     assert session[:access_token].present?
 
-    # ログアウト
     delete logout_path
     assert_redirected_to login_path
     assert_nil session[:access_token]
   end
 
   test "should reset failed attempts after successful login" do
-    # 失敗を3回記録
     3.times do
       post login_path, params: { login: @user.login, password: "WrongPassword123!" }
     end
     
     assert_equal 3, @user.reload.lock_count
 
-    # 正しいパスワードでログイン
     post login_path, params: { login: @user.login, password: "Password123!" }
     assert_equal 0, @user.reload.lock_count
   end

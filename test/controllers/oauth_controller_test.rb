@@ -9,8 +9,6 @@ class OauthControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect to oauth authorize url" do
     get oauth_authorize_path
-    
-    expected_url = "#{OauthController::OAUTH_BASE_URL}/oauth/authorize"
     assert_response :redirect
     
     redirect_uri = URI.parse(@response.redirect_url)
@@ -25,9 +23,7 @@ class OauthControllerTest < ActionDispatch::IntegrationTest
 
   test "should handle successful oauth callback" do
     mock_token_response = {
-      "access_token" => "test_access_token",
-      "token_type" => "Bearer",
-      "expires_in" => 3600
+      "access_token" => "test_access_token"
     }.to_json
 
     stub_request = Struct.new(:response) do

@@ -7,8 +7,7 @@ class UserImagesControllerTest < ActionDispatch::IntegrationTest
     @large_image = fixture_file_upload('test/fixtures/files/large_image.png', 'image/png')
     @invalid_type_image = fixture_file_upload('test/fixtures/files/invalid.txt', 'text/plain')
     
-    # ログイン状態を作成
-    @user.update!(password: "Password123!")  # 一時的にパスワードを設定
+    @user.update!(password: "Password123!")
     post login_path, params: { login: @user.login, password: "Password123!" }
   end
 
@@ -39,7 +38,7 @@ class UserImagesControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference('UserImage.count') do
       post user_images_path, params: {
         user_image: {
-          title: "",  # タイトルなし
+          title: "",
           image: @valid_image
         }
       }
