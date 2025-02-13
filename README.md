@@ -6,6 +6,9 @@
 - PostgreSQL
 
 ## セットアップ手順
+### 前提
+- 共有されたmaster.keyを/config/master.keyに配置してください。
+
 ```
 $ docker-compose build
 
