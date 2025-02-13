@@ -1,15 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  login: MyString
-  password_hash: MyString
-  password_salt: MyString
-  access_token: MyString
-  access_token_expire_date: 2025-02-08 02:04:15
+  login: user_one
+  password_hash: <%= BCrypt::Password.create("Password123!").to_s %>
+  password_salt: <%= SecureRandom.hex(32) %>
+  access_token: <%= SecureRandom.hex(32) %>
+  access_token_expire_date: <%= 30.minutes.from_now %>
+  lock_count: 0
+  unlock_time: null
 
 two:
-  login: MyString
-  password_hash: MyString
-  password_salt: MyString
-  access_token: MyString
-  access_token_expire_date: 2025-02-08 02:04:15
+  login: user_two
+  password_hash: <%= BCrypt::Password.create("Password123!").to_s %>
+  password_salt: <%= SecureRandom.hex(32) %>
+  access_token: <%= SecureRandom.hex(32) %>
+  access_token_expire_date: <%= 30.minutes.from_now %>
+  lock_count: 0
+  unlock_time: null

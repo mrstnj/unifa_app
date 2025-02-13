@@ -24,3 +24,10 @@ http://localhost:3000/login
 ログインID： user1
 パスワード： password123*
 ```
+
+## テスト
+```
+$ docker-compose run web bundle exec rails db:migrate RAILS_ENV=test
+
+$ docker-compose run web bundle exec rails test
+```
