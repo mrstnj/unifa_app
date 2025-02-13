@@ -8,6 +8,10 @@ class UserImage < ApplicationRecord
 
   before_save :set_filename, if: -> { image.attached? }
 
+  def thumbnail
+    image.variant(resize_to_fit: [300, 200]).processed
+  end
+
   private
 
   def acceptable_image
